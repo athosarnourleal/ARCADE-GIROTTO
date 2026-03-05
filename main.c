@@ -245,7 +245,6 @@ void drawGousmas(int g[2]) {
 void gousmasWar() {
     printf("###### Gousmas War ###### \n\n");
 
-    /*
     char jog[2][10];//jogadores
 
     printf("escreva o nome do jogador 1: ");
@@ -253,15 +252,7 @@ void gousmasWar() {
     printf("escreva o nome do jogador 2: ");
     scanf("%s",jog[1]);
 
-    // */
-
-    char jog[2][10] = {
-    "fabinho",
-    "luan"
-    };
-
-
-    printf("nomes dos jogadores são: %s e %s \n",jog[0],jog[1]);
+    printf("nomes dos jogadores são: %s e %s!\n",jog[0],jog[1]);
 
     int ganhador = 0; // ganhador = 0 -> nao sei quem ganhou ainda
     int vez = rand()%2; // vez aleatoria
@@ -317,7 +308,7 @@ void gousmasWar() {
             // ambos estão vivos
             printf("0: distribuir furia\n");
             printf("1: atacar\n");
-            printf("%s, escolha sua ação: ",jog[vez]);
+            printf("---> %s, escolha sua ação: ",jog[vez]);
             scanf("%d",&action);
             if (action != 0 && action != 1) {
                 // se for inserido um valor invalido -> vai atacar
