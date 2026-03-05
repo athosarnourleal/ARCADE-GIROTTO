@@ -5,7 +5,7 @@
 void perguntasERespostas() {
     char r;
     int acertos = 0;
-    printf("----Perguntas e Respostas----\n");
+    printf("###### Perguntas e Respostas ######\n");
     printf("selecione as alternativas corretas e veja seu resultado! \n\n");
 
     printf("##Pergunta 1!\n");//--------------------------------1
@@ -113,7 +113,7 @@ void perguntasERespostas() {
 }
 
 void cobraNaCaixa() {
-    printf("----Cobra Na Caixa----\n\n");
+    printf("###### Cobra Na Caixa ######\n\n");
 
     char jog[2][10];//jogadores
     int vez = 0;
@@ -192,77 +192,59 @@ void cobraNaCaixa() {
 }
 
 void drawGousmas(int g[2]) {
+    int dlarg = 8;// a largura do desenho de uma gousma é: 8 caracteres
+    int larg = dlarg+3; // largura do desenho + espaço(1) + numero de furia(1) + espaço(1)
+    int linelen = larg*2+1; // largura total das 2 gousmas
 
-    printf("flag0 \n");
-
-    char gousma[3][10] =
+    char gousma[3][8] =
     {
-        "  _____ \0",
-        " /     |\0",
-        "|______|\0"
+        "  _____ ",
+        " /     |",
+        "|______|"
     };
 
-    int dlarg = 10;// a largura do desenho de uma gousma é: 8 caracteres
-
-    char linhas[3][dlarg*2];// dar espaço para a gousma, os espaços, e o lugar para desenhar o nivel de furia dela
+    char linhas[3][linelen];// linhas que vão ser printadas
 
     int i,j,k;
     for (i = 0;i < 3;i++) {
-        for (j = 0;j < dlarg*2;j++) {
-            linhas[i][j] = '@'; // clear da linha
+        for (j = 0;j < linelen;j++) {
+            linhas[i][j] = ' '; // clear da linha
         }
 
-        linhas[i][dlarg*2-1] = '\0'; // clear da linha
-        printf("%s \n",gousma[i]);
+        linhas[i][linelen-1] = '\0'; // clear da linha
     }
-    printf("1 -> %s \n",gousma[0]);
-    printf("2 -> %s \n",gousma[1]);
-    printf("3 -> %s \n\n",gousma[2]);
-
-    printf("1 -> %s \n",linhas[0]);
-    printf("2 -> %s \n",linhas[1]);
-    printf("3 -> %s \n\n",linhas[2]);
-
-    int larg = dlarg+3; // largura do desenho + espaço(1) + numero de furia(1) + espaço(1)
     for(i = 0; i < 2;i++) {
-
-        printf("flag1 -> start(%i) \n",i);
         if (g[i] == -1) {
             // esta morta -> nao desenhe
             continue;
         }
 
         for(j = 0; j < 3;j++) {
-            printf("antes j(%d): %s -> %s \n",j,linhas[j],gousma[j]);
             for(k = 0; k < dlarg;k++) {
                 // escolhi esse metodo ao inves de strcat() pois as gousmas iam ficar na posição certa mesmo quando uma morria
-                linhas[j][larg*i + k] = (char)((int)(gousma[j][k]));// desenhar gousma
-                printf("i:%d j:%d k:%d -> linha(%c) = gousma(%c) ? %i \n",i,j,k,linhas[j][larg*i + k], gousma[j][k],(int)(gousma[j][k]));
+                linhas[j][larg*i + k] = gousma[j][k];// passar o desenho da gousma para a linha
             }
-            printf("resultado j(%d): %s -> %s \n",j,linhas[j],gousma[j]);
-            if (j == 2) { // terceira linha
-                printf("final: \n");
-                linhas[j][larg*i + dlarg] = ' '; // espaço
-                linhas[j][larg*i + dlarg + 1] = (int)(g[i]);// desenhar o nivel de furia
-                linhas[j][larg*i + dlarg] = ' '; // espaço
+            if (j == 2) { // na terceira linha
+                char furia = g[i] + '0';
+                linhas[j][larg*i + dlarg  ] = ' '; // espaço
+                linhas[j][larg*i + dlarg+1] = furia;// desenhar o nivel de furia
+                linhas[j][larg*i + dlarg+2] = ' '; // espaço
             }
         }
 
     }
 
-    printf("flag2 \n");
-
-    for(i = 0; i < 3;i++) { // printar as 3 linhas
-        printf("%s \n", linhas[i]);
+    // printar as linhas formadas
+    char tab[] = "     ";
+    printf("%sgousma 1     gousma 2\n",tab);
+    for(i = 0; i < 3;i++) {
+        printf("%s%s \n",tab, linhas[i]);
     }
-    printf("flag3 \n");
 }
 
 void gousmasWar() {
-    printf("----Gousmas War----\n\n");
+    printf("###### Gousmas War ###### \n\n");
 
-    int ganhador = 0;
-    int vez = rand()%2;
     /*
     char jog[2][10];//jogadores
 
@@ -274,31 +256,184 @@ void gousmasWar() {
     // */
 
     char jog[2][10] = {
-    "gugugaga",
-    "gagagugu"
+    "fabinho",
+    "luan"
     };
-    // */
+
+
     printf("nomes dos jogadores são: %s e %s \n",jog[0],jog[1]);
 
-    //int action = 0; // 0 = atack //  1= defesa //
+    int ganhador = 0; // ganhador = 0 -> nao sei quem ganhou ainda
+    int vez = rand()%2; // vez aleatoria
+    int action = 0; // 0 = distribuir furia //  1 = atacar // 2 = ataque obrigatorio //
+    int alvo,quant,atacante, atacado;
 
-
-    int gousmas[2][2] = {
+    int gousmas[2][2] = { // furia das gosmas
         {1,1}, // gousmas do jogador 1
         {1,1}  // gousmas do jogador 2
     };
+    // furia == -1 -> gousma morre
+
 
     while(ganhador == 0) { // ganhador = nenhum
-        printf("### vez de %s! \n", jog[vez]);
+        printf("\n------ vez de %s! ------\n\n", jog[vez]);
 
-        printf("gosmas de %s: \n", jog[vez]);
+        // desenhar as gousmas no jogo //
 
-        drawGousmas(gousmas[vez]);
+        // gousmas do jogador 1
+        printf("gosmas de %s: ", jog[0]);
+        if (vez == 0) {// printar indicador de vez
+            printf("<<< ");
+        }
+        printf("\n\n");
+        drawGousmas(gousmas[0]);
+        printf("\n");
 
-        printf("flag4 \n");
+        // gousmas do jogador 2
+        printf("gosmas de %s: ", jog[1]); // do jogador 2
+        if (vez == 1) {// printar indicador de vez
+            printf("<<< ");
+        }
+        printf("\n\n");
+        drawGousmas(gousmas[1]);
+        printf("\n");
+
+        // checar se alguem ganhou //
+
+        if (gousmas[0][0] + gousmas[0][1] == -2) {
+            // se ambas do jogador 1 morrerem -> jogador 2 ganha
+            ganhador = 2;
+            break;
+        }
+        if (gousmas[1][0] + gousmas[1][1] == -2) {
+            // se ambas do jogador 2 morrerem -> jogador 1 ganha
+            ganhador = 1;
+            break;
+        }
+
+        // ver a ação que deve ser executada //
+
+        if (gousmas[vez][0] >= 0 && gousmas[vez][1] >= 0) {
+            // ambos estão vivos
+            printf("0: distribuir furia\n");
+            printf("1: atacar\n");
+            printf("%s, escolha sua ação: ",jog[vez]);
+            scanf("%d",&action);
+            if (action != 0 && action != 1) {
+                // se for inserido um valor invalido -> vai atacar
+                printf("nenhum valor valido inserido -> vai atacar");
+                action = 1;
+            }
+        } else {
+            // se um dos dois está morto, entao não é possivel transferir
+
+            printf("%s apenas pode atacar! \n",jog[vez]);
+            action = 2;
+        }
+
+        // executar a ação dita //
+
+        switch(action) {
+        case 0: // distribuir
+            printf("DISTRIBUIR \n");
+            printf("indique qual gousma vai receber da outra: ");
+            scanf("%d",&alvo);
+            printf("indique o quanto de furia sera transferido: ");
+            scanf("%d",&quant);
+
+            alvo --;// fiz isso pois a ID das gousmas é no array 0 - 1, ao inves de 1 - 2
+
+            if (quant > gousmas[vez][(alvo+1)%2]) {// quant é maior que a furia da gousma que vai entregar
+                quant = gousmas[vez][(alvo+1)%2];
+            } else if (quant < 0) {// quant é negativa
+                quant = 0;
+            }
+
+            //transferir
+            gousmas[vez][alvo] += quant;
+            gousmas[vez][(alvo+1)%2] -= quant;
+
+            printf("gosmas de %s após a transferencia \n", jog[vez]); // desse jogador
+            drawGousmas(gousmas[vez]);// desenhar as gousmas desse jogador
+
+        break;
+        case 1: // atacar
+            printf("ATAQUE \n");
+            printf("indique que gousma vai atacar o inimigo: ");
+            scanf("%d",&atacante);
+
+            if (gousmas[(vez+1)%2][0] == -1 ||gousmas[(vez+1)%2][1] == -1) {
+                //se uma estiver morta -> mire na outra
+
+                if (gousmas[(vez+1)%2][0] != -1) {
+                    // se 0 for vivo
+                    atacado = 0;
+                } else {
+                    // se 1 for vivo
+                    atacado = 1;
+                }
+
+            } else {
+                // se ambas do inimigo estao vivas -> escolha qual atacar
+                printf("indique qual gousma do inimigo vai ser atacada: ");
+                scanf("%d",&atacado);
+
+                if (atacado < 1 || atacado > 2) {
+                    // input invalido
+                    atacado = 1;
+                }
+            }
+
+            atacante--;// fiz isso pois a ID das gousmas é no array 0 - 1, ao inves de 1 - 2
+            atacado--;
+
+            // atacar
+            gousmas[(vez+1)%2][atacado] += gousmas[vez][atacante]; // furia da gosma atacada += furia da gosma atacante;
+
+            // ver se a gousma atacada morreu
+            if (gousmas[(vez+1)%2][atacado] > 5) {
+                gousmas[(vez+1)%2][atacado] = -1; // morta
+            }
+
+        break;
+        case 2:// ataque obrigatorio -> não ha como distribuir pois uma das gousmas esta morta
+            printf("ATAQUE \n");
+
+            // atacante é a gosma viva(só uma das duas pode estar viva ao mesmo tempo)
+            if (gousmas[vez][0] != -1) {
+                atacante = 0;
+            } else {
+                atacante = 1;
+            }
+            printf("gousma %d vai atacar \n",atacante+1);
+
+            printf("indique qual gousma do inimigo vai ser atacada: ");
+            scanf("%d",&atacado);
+
+            atacado--;
+
+            if (gousmas[(vez+1)%2][atacado] == -1) {
+                atacado = (atacado+1)%2;
+            }
+
+            // atacar
+            gousmas[(vez+1)%2][atacado] += gousmas[vez][atacante]; // furia da gosma atacada += furia da gosma atacante;
+
+            // ver se a gousma atacada morreu
+            if (gousmas[(vez+1)%2][atacado] > 5) {
+                gousmas[(vez+1)%2][atacado] = -1; // morta
+            }
+        break;
+        default:
+            printf("ação invalida, turno pulado... (%d)\n",action);
+        break;
+        }
+
         vez = (vez+1) % 2; // trocar a vez
-        ganhador++;
     }
+
+    printf("\n JOGO ACABOU! \n");
+    printf("%s ganhou!!!! \n", jog[ganhador-1]);
 
 }
 int main() {
