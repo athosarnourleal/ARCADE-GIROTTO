@@ -275,11 +275,10 @@ void cobraNaCaixa() {
 }
 
 void drawGousmas(int g[2]) {
-    // desenhar as gousmas vivas na tela
 
-    int dlarg = 8;// a largura do desenho de uma gousma é: 8 caracteres
+    int dlarg = 8;// larg desenho
     int larg = dlarg+3; // largura do desenho + espaço(1) + numero de furia(1) + espaço(1)
-    int linelen = larg*2+1; // largura total das 2 gousmas
+    int linelen = larg*2+1; // tamanho total
 
     char gousma[3][8] =
     {
@@ -288,32 +287,30 @@ void drawGousmas(int g[2]) {
         "|______|"
     };
 
-    char linhas[3][linelen];// linhas que vão ser printadas
+    char linhas[3][linelen];
 
     int i,j,k;
     for (i = 0;i < 3;i++) {
         for (j = 0;j < linelen;j++) {
-            linhas[i][j] = ' '; // clear da linha
+            linhas[i][j] = ' ';
         }
 
-        linhas[i][linelen-1] = '\0'; // clear da linha
+        linhas[i][linelen-1] = '\0';
     }
     for(i = 0; i < 2;i++) {
         if (g[i] == -1) {
-            // esta morta -> nao desenhe
             continue;
         }
 
         for(j = 0; j < 3;j++) {
             for(k = 0; k < dlarg;k++) {
-                // escolhi esse metodo ao inves de strcat() pois as gousmas iam ficar na posição certa mesmo quando uma morria
                 linhas[j][larg*i + k] = gousma[j][k];// passar o desenho da gousma para a linha
             }
             if (j == 2) { // na terceira linha
                 char furia = g[i] + '0';
-                linhas[j][larg*i + dlarg  ] = ' '; // espaço
-                linhas[j][larg*i + dlarg+1] = furia;// desenhar o nivel de furia
-                linhas[j][larg*i + dlarg+2] = ' '; // espaço
+                linhas[j][larg*i + dlarg  ] = ' ';
+                linhas[j][larg*i + dlarg+1] = furia;
+                linhas[j][larg*i + dlarg+2] = ' ';
             }
         }
 
@@ -342,18 +339,22 @@ void gousmasWar() {
 	system("pause");
 	system("cls");
 	
-    int ganhador = 0; // ganhador = 0 -> nao sei quem ganhou ainda
-    int vez = rand()%2; // vez aleatoria
-    int action = 0; // 0 = distribuir furia //  1 = atacar // 2 = ataque obrigatorio //
+    int ganhador = 0;
+    
+    int vez = rand()%2;
+    int action = 0;
+	// 0 = distribuir furia //  1 = atacar // 2 = ataque obrigatorio //
     int alvo,quant,atacante, atacado;
 
-    int gousmas[2][2] = { // furia das gosmas
+    int gousmas[2][2] = {
         {1,1}, // gousmas do jogador 1
         {1,1}  // gousmas do jogador 2
     };
     // furia == -1 -> gousma morre
 
-
+	// obs: gousma 1 -> id = 0
+	// obs: gousma 2 -> id = 1
+	
     while(ganhador == 0) { // ganhador = nenhum
     	
         printf("\n==========================================\n");
@@ -363,7 +364,7 @@ void gousmasWar() {
 
         // gousmas do jogador 1
         printf("gosmas de %s: ", jog[0]);
-        if (vez == 0) {// printar indicador de vez
+        if (vez == 0) {
             printf("<----- ");
         }
         printf("\n\n");
@@ -372,7 +373,7 @@ void gousmasWar() {
 
         // gousmas do jogador 2
         printf("gosmas de %s: ", jog[1]); // do jogador 2
-        if (vez == 1) {// printar indicador de vez
+        if (vez == 1) {
             printf("<----- ");
         }
         printf("\n\n");
@@ -382,12 +383,10 @@ void gousmasWar() {
         // checar se alguem ganhou //
 
         if (gousmas[0][0] + gousmas[0][1] == -2) {
-            // se ambas do jogador 1 morrerem -> jogador 2 ganha
             ganhador = 2;
             break;
         }
         if (gousmas[1][0] + gousmas[1][1] == -2) {
-            // se ambas do jogador 2 morrerem -> jogador 1 ganha
             ganhador = 1;
             break;
         }
@@ -400,14 +399,15 @@ void gousmasWar() {
             printf("1: atacar\n\n");
             printf("jogador %s, escolha sua acao: ",jog[vez]);
             scanf("%d",&action);
-            if (action != 0 && action != 1) {
-                // se for inserido um valor invalido -> vai atacar
+            
+            if (action != 0 && action != 1) {// invalida
                 printf("nenhum valor valido inserido -> vai atacar");
-                action = 1;
+                system("pause");
+                system("cls");
+                continue;
             }
         } else {
-            // se um dos dois está morto, entao não é possivel transferir
-
+            // algum esta morto
             printf("%s apenas pode atacar! \n",jog[vez]);
             action = 2;
         }
@@ -415,16 +415,16 @@ void gousmasWar() {
         // executar a ação dita //
 
         switch(action) {
-        case 0: // distribuir
+        case 0: //// distribuir
             printf("DISTRIBUIR \n");
             printf("indique qual gousma vai receber da outra: ");
             scanf("%d",&alvo);
             printf("indique o quanto de furia sera transferido: ");
             scanf("%d",&quant);
 
-            alvo --;// fiz isso pois a ID das gousmas é no array 0 - 1, ao inves de 1 - 2
+            alvo --;
 
-            if (quant > gousmas[vez][(alvo+1)%2]) {// quant é maior que a furia da gousma que vai entregar
+            if (quant > gousmas[vez][(alvo+1)%2]) {// quant > furia
                 quant = gousmas[vez][(alvo+1)%2];
             } else if (quant < 0) {// quant é negativa
                 quant = 0;
@@ -438,7 +438,7 @@ void gousmasWar() {
             drawGousmas(gousmas[vez]);// desenhar as gousmas desse jogador
 
         break;
-        case 1: // atacar
+        case 1: //// atacar
             printf("ATAQUE \n");
             printf("indique que gousma vai atacar o inimigo: ");
             scanf("%d",&atacante);
@@ -479,8 +479,7 @@ void gousmasWar() {
         break;
         case 2:// ataque obrigatorio -> não ha como distribuir pois uma das gousmas esta morta
             printf("ATAQUE \n");
-
-            // atacante é a gosma viva(só uma das duas pode estar viva ao mesmo tempo)
+			
             if (gousmas[vez][0] != -1) {
                 atacante = 0;
             } else {
