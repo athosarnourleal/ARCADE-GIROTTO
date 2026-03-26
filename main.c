@@ -1,115 +1,181 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
+void setCaps(char *c) {
+    if (*c >= 97 && *c <= 122) {
+        *c -= 32;
+    }
+}
+
+int isValid(char r) {
+    if (r >= 65 && r <= 68) {
+
+    }
+    return false;
+}
 
 void perguntasERespostas() {
-    char r;
+    char r = 0;
     int acertos = 0;
     printf("###### Perguntas e Respostas ######\n");
     printf("selecione as alternativas corretas e veja seu resultado! \n\n");
 
-    printf("##Pergunta 1!\n");//--------------------------------1
+    while(!isValid(r)) {
+        printf("##Pergunta 1!\n");//--------------------------------1
 
-    printf("quantos digitos existem de pi?\n");
+        printf("quantos digitos existem de pi?\n");
 
-    printf("a) 3.14 \n");
-    printf("b) 3 \n");
-    printf("c) infinitos \n");
-    printf("d) 109.267.901 \n");
-    printf("escolha uma alternativa: ");
-    scanf("%c",&r);
-    scanf("%c",&r);// botei 2 pois o primeiro não estava funcionando por algum motivo?
+        printf("a) 3.14 \n");
+        printf("b) 3 \n");
+        printf("c) infinitos \n");
+        printf("d) 109.267.901 \n");
+        printf("escolha uma alternativa: ");
+        scanf(" %c",&r);
+        setCaps(&r);
 
-    if (r == 'c') {
-        printf("ACERTOU! \n");
-        acertos++;
-    } else {
-        printf("ERROU! \n");
-        printf("a alternativa certa era c), não %c) \n",r);
+        if (!isValid(r)) {
+            printf("resposta invalida...\n");
+            system("pause");
+            system("cls");
+            continue;
+        }
+
+        if (r == 'C') {
+            printf("ACERTOU! \n");
+            acertos++;
+        } else {
+            printf("ERROU! \n");
+            printf("a alternativa certa era C), não %c) \n",r);
+        }
+
+        system("cls");
+    }
+    r = 0;
+
+    while (!isValid(r)) {
+        printf("##Pergunta 2!\n");//--------------------------------2
+
+        printf("Qual é a capital do uruguai? \n");
+
+        printf("a) havanna \n");
+        printf("b) montevidéu \n");
+        printf("c) tenochtlan \n");
+        printf("d) el salvador \n");
+        scanf(" %c",&r);
+        setCaps(&r);
+
+        if (!isValid(r)) {
+            printf("resposta invalida...\n");
+            system("pause");
+            system("cls");
+            continue;
+        }
+
+        if (r == 'B') {
+            printf("ACERTOU! \n");
+            acertos++;
+        } else {
+            printf("ERROU! \n");
+            printf("a alternativa certa era B), não %c) \n",r);
+        }
+
+        system("cls");
+    }
+    r = 0;
+
+    while (!isValid(r)) {
+        printf("##Pergunta 3 \n");//--------------------------------3
+
+        printf("que ano foi decretada a lei aurea? \n");
+
+        printf("a) 1888 \n");
+        printf("b) 1980 \n");
+        printf("c) 1790 \n");
+        printf("d) 1816 \n");
+        scanf(" %c",&r);
+        setCaps(&r);
+
+        if (!isValid(r)) {
+            printf("resposta invalida...\n");
+            system("pause");
+            system("cls");
+            continue;
+        }
+
+        if (r == 'A') {
+            printf("ACERTOU! \n");
+            acertos++;
+        } else {
+            printf("ERROU! \n");
+            printf("a alternativa certa era A), não %c) \n",r);
+        }
+
+        system("cls");
+    }
+    r = 0;
+
+    while (!isValid(r)) {
+        printf("##Pergunta 4 \n");//--------------------------------4
+
+        printf("qual a soma dos angulos internos de um triangulo obtusangulo? \n");
+
+        printf("a) 135 \n");
+        printf("b) 270 \n");
+        printf("c) 360 \n");
+        printf("d) 180 \n");
+        scanf(" %c",&r);
+        setCaps(&r);
+
+        if (!isValid(r)) {
+            printf("resposta invalida...\n");
+            system("pause");
+            system("cls");
+            continue;
+        }
+
+        if (r == 'D') {
+            printf("ACERTOU! \n");
+            acertos++;
+        } else {
+            printf("ERROU! \n");
+            printf("a alternativa certa era D), não %c) \n",r);
+        }
+
+        system("cls");
+    }
+    r = 0;
+
+    while(!isValid(r)) {
+        printf("##Pergunta 5 \n");//--------------------------------5
+
+        printf("de quantos digitos é formado o CPF brasileiro? \n");
+        printf("a) 10 \n");
+        printf("b) 11 \n");
+        printf("c) 12 \n");
+        printf("d) 9 \n");
+        scanf(" %c",&r);
+        setCaps(&r);
+
+        if (!isValid(r)) {
+            printf("resposta invalida...\n");
+            system("pause");
+            system("cls");
+            continue;
+        }
+
+        if (r == 'B') {
+            printf("ACERTOU! \n");
+            acertos++;
+        } else {
+            printf("ERROU! \n");
+            printf("a alternativa certa era B), não %c) \n",r);
+        }
+
+        system("cls");
     }
 
-    printf("\n");
-
-    printf("##Pergunta 2!\n");//--------------------------------2
-
-    printf("Qual é a capital do uruguai? \n");
-
-    printf("a) havanna \n");
-    printf("b) montevidéu \n");
-    printf("c) tenochtlan \n");
-    printf("d) el salvador \n");
-    scanf("%c",&r);
-    scanf("%c",&r);
-
-    if (r == 'b') {
-        printf("ACERTOU! \n");
-        acertos++;
-    } else {
-        printf("ERROU! \n");
-        printf("a alternativa certa era b), não %c) \n",r);
-    }
-
-    printf("\n");
-
-    printf("##Pergunta 3 \n");//--------------------------------3
-
-    printf("que ano foi decretada a lei aurea? \n");
-
-    printf("a) 1888 \n");
-    printf("b) 1980 \n");
-    printf("c) 1790 \n");
-    printf("d) 1816 \n");
-    scanf("%c",&r);
-    scanf("%c",&r);
-
-    if (r == 'a') {
-        printf("ACERTOU! \n");
-        acertos++;
-    } else {
-        printf("ERROU! \n");
-        printf("a alternativa certa era a), não %c) \n",r);
-    }
-    printf("\n");
-    printf("##Pergunta 4 \n");//--------------------------------4
-
-    printf("qual a soma dos angulos internos de um triangulo obtusangulo? \n");
-
-    printf("a) 135 \n");
-    printf("b) 270 \n");
-    printf("c) 360 \n");
-    printf("d) 180 \n");
-    scanf("%c",&r);
-    scanf("%c",&r);
-
-    if (r == 'd') {
-        printf("ACERTOU! \n");
-        acertos++;
-    } else {
-        printf("ERROU! \n");
-        printf("a alternativa certa era d), não %c) \n",r);
-    }
-    printf("\n");
-
-    printf("##Pergunta 5 \n");//--------------------------------5
-
-    printf("de quantos digitos é formado o CPF brasileiro? \n");
-    printf("a) 10 \n");
-    printf("b) 11 \n");
-    printf("c) 12 \n");
-    printf("d) 9 \n");
-    scanf("%c",&r);
-    scanf("%c",&r);
-
-    if (r == 'b') {
-        printf("ACERTOU! \n");
-        acertos++;
-    } else {
-        printf("ERROU! \n");
-        printf("a alternativa certa era b), não %c) \n",r);
-    }
-    printf("\n");
-
-    printf("Fim do jogo! \n você acertou um total de %d / 5",acertos);
+    printf("Fim do jogo! \n você acertou um total de %d / 5\n\n",acertos);
 }
 
 void cobraNaCaixa() {
@@ -183,7 +249,9 @@ void cobraNaCaixa() {
         }
 
         vez = (vez+1)%2; // troca a vez
-        printf("\n\n");
+        if (ganhador == 0) {
+            system("cls");
+        }
     }
 
     if (ganhador != 0) {
@@ -192,6 +260,8 @@ void cobraNaCaixa() {
 }
 
 void drawGousmas(int g[2]) {
+    // desenhar as gousmas vivas na tela
+
     int dlarg = 8;// a largura do desenho de uma gousma é: 8 caracteres
     int larg = dlarg+3; // largura do desenho + espaço(1) + numero de furia(1) + espaço(1)
     int linelen = larg*2+1; // largura total das 2 gousmas
@@ -419,7 +489,7 @@ void gousmasWar() {
             printf("ação invalida, turno pulado... (%d)\n",action);
         break;
         }
-
+        system("cls");
         vez = (vez+1) % 2; // trocar a vez
     }
 
@@ -428,6 +498,8 @@ void gousmasWar() {
 
 }
 int main() {
+
+    srand(time(NULL));
 
     int ended = 0;
     int escolha;
@@ -441,6 +513,8 @@ int main() {
         printf("4: sair do arcade... \n");
         printf("escolha o jogo que deseja jogar:");
         scanf("%d",&escolha);
+
+        system("cls");
 
         switch(escolha) {
         case 1:
@@ -456,15 +530,16 @@ int main() {
             return 0;// fechar jogo
             break;
         default:
-            printf("numero não valido inserido? \n");
+            printf("numero invalido inserido \n");
             break;
         }
         restart = 'n';
-        printf("\n jogar novamente?(S/N) ");
+        printf("\n voltar ao menu?(S/N) ");
         scanf("%c",&restart);
         scanf("%c",&restart);
         if (restart == 's' || restart == 'S') {
             printf("reiniciando... \n \n");
+            system("cls");
         } else {
             ended = 1;
             printf("finalizando... ('%c')\n\n\n",restart);
