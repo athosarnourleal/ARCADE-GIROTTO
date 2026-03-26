@@ -10,9 +10,9 @@ void setCaps(char *c) {
 
 int isValid(char r) {
     if (r >= 65 && r <= 68) {
-
+		return 1;
     }
-    return false;
+    return 0;
 }
 
 void perguntasERespostas() {
@@ -46,9 +46,10 @@ void perguntasERespostas() {
             acertos++;
         } else {
             printf("ERROU! \n");
-            printf("a alternativa certa era C), n√£o %c) \n",r);
+            printf("a alternativa certa era C), nn %c) \n",r);
         }
-
+        
+		system("pause");
         system("cls");
     }
     r = 0;
@@ -56,10 +57,10 @@ void perguntasERespostas() {
     while (!isValid(r)) {
         printf("##Pergunta 2!\n");//--------------------------------2
 
-        printf("Qual √© a capital do uruguai? \n");
+        printf("Qual a capital do uruguai? \n");
 
         printf("a) havanna \n");
-        printf("b) montevid√©u \n");
+        printf("b) montevideu \n");
         printf("c) tenochtlan \n");
         printf("d) el salvador \n");
         scanf(" %c",&r);
@@ -77,9 +78,10 @@ void perguntasERespostas() {
             acertos++;
         } else {
             printf("ERROU! \n");
-            printf("a alternativa certa era B), n√£o %c) \n",r);
+            printf("a alternativa certa era B), nn %c) \n",r);
         }
 
+		system("pause");
         system("cls");
     }
     r = 0;
@@ -108,7 +110,7 @@ void perguntasERespostas() {
             acertos++;
         } else {
             printf("ERROU! \n");
-            printf("a alternativa certa era A), n√£o %c) \n",r);
+            printf("a alternativa certa era A), nn %c) \n",r);
         }
 
         system("cls");
@@ -139,9 +141,10 @@ void perguntasERespostas() {
             acertos++;
         } else {
             printf("ERROU! \n");
-            printf("a alternativa certa era D), n√£o %c) \n",r);
+            printf("a alternativa certa era D), nn %c) \n",r);
         }
 
+		system("pause");
         system("cls");
     }
     r = 0;
@@ -149,7 +152,7 @@ void perguntasERespostas() {
     while(!isValid(r)) {
         printf("##Pergunta 5 \n");//--------------------------------5
 
-        printf("de quantos digitos √© formado o CPF brasileiro? \n");
+        printf("de quantos digitos È formado o CPF brasileiro? \n");
         printf("a) 10 \n");
         printf("b) 11 \n");
         printf("c) 12 \n");
@@ -169,16 +172,18 @@ void perguntasERespostas() {
             acertos++;
         } else {
             printf("ERROU! \n");
-            printf("a alternativa certa era B), n√£o %c) \n",r);
+            printf("a alternativa certa era B), nn %c) \n",r);
         }
 
+		system("pause");
         system("cls");
     }
 
-    printf("Fim do jogo! \n voc√™ acertou um total de %d / 5\n\n",acertos);
+    printf("Fim do jogo! \n vocÍ acertou um total de %d / 5\n\n",acertos);
 }
 
 void cobraNaCaixa() {
+	srand(time(NULL));
     printf("###### Cobra Na Caixa ######\n\n");
 
     char jog[2][10];//jogadores
@@ -188,12 +193,12 @@ void cobraNaCaixa() {
     printf("escreva o nome do jogador 2: ");
     scanf("%s",jog[1]);
 
-    printf("nomes jogadores s√£o: %s e %s \n",jog[0],jog[1]);
+    printf("nomes jogadores s„o: %s e %s \n",jog[0],jog[1]);
 
     int i;
     int numCaixas = 5;
     int caixas[numCaixas];
-    // 0 = nada // 1 = cobra // 2 = bot√£o // 3 = aberta e vazia //
+    // 0 = nada // 1 = cobra // 2 = bot„o // 3 = aberta e vazia //
 
     int cobra = rand() % numCaixas,// coloca uma cobra em uma caixa qualquer
         bot = rand() % numCaixas;
@@ -231,7 +236,6 @@ void cobraNaCaixa() {
         e = -1;
         printf("jogador %s escolha uma caixa: ",jog[vez]);
         scanf("%d",&e);
-        printf("valor da caixa caixa: %d -> e = %d \n",caixas[e],e);
 
         switch(caixas[e]) {
             case 0://nada
@@ -239,12 +243,23 @@ void cobraNaCaixa() {
                 printf("a caixa %d caixa vazia!!! \n",e);
             break;
             case 1://cobra
-                ganhador = ((vez+1) % 2)+1;// ganhador √© o que n√£o √© da vez
+                ganhador = ((vez+1) % 2)+1;// ganhador È o que n„o È da vez
                 printf("a caixa %d tinha uma cobra! \n",e);
+                
+                printf("   _____ \n");
+				printf("  |.   .|\n");
+				printf("  |<v v>|\n");
+				printf("  /  /\n");
+				printf("+|__| +\n");
+				printf("|     |\n");
+				printf("+-----+\n");
             break;
             case 2://botao
-                ganhador = vez+1;// ganhador √© o da vez
-                printf("a caixa %d tinha um bot√£o! \n",e);
+                ganhador = vez+1;// ganhador È o da vez
+                printf("a caixa %d tinha um botao! \n",e);
+				printf("|     |\n");
+				printf("| (+) |\n");
+				printf("+-----+\n");
             break;
         }
 
@@ -262,18 +277,18 @@ void cobraNaCaixa() {
 void drawGousmas(int g[2]) {
     // desenhar as gousmas vivas na tela
 
-    int dlarg = 8;// a largura do desenho de uma gousma √©: 8 caracteres
-    int larg = dlarg+3; // largura do desenho + espa√ßo(1) + numero de furia(1) + espa√ßo(1)
+    int dlarg = 8;// a largura do desenho de uma gousma È: 8 caracteres
+    int larg = dlarg+3; // largura do desenho + espaÁo(1) + numero de furia(1) + espaÁo(1)
     int linelen = larg*2+1; // largura total das 2 gousmas
 
     char gousma[3][8] =
     {
         "  _____ ",
-        " /     |",
+        " /.  . |",
         "|______|"
     };
 
-    char linhas[3][linelen];// linhas que v√£o ser printadas
+    char linhas[3][linelen];// linhas que v„o ser printadas
 
     int i,j,k;
     for (i = 0;i < 3;i++) {
@@ -291,14 +306,14 @@ void drawGousmas(int g[2]) {
 
         for(j = 0; j < 3;j++) {
             for(k = 0; k < dlarg;k++) {
-                // escolhi esse metodo ao inves de strcat() pois as gousmas iam ficar na posi√ß√£o certa mesmo quando uma morria
+                // escolhi esse metodo ao inves de strcat() pois as gousmas iam ficar na posiÁ„o certa mesmo quando uma morria
                 linhas[j][larg*i + k] = gousma[j][k];// passar o desenho da gousma para a linha
             }
             if (j == 2) { // na terceira linha
                 char furia = g[i] + '0';
-                linhas[j][larg*i + dlarg  ] = ' '; // espa√ßo
+                linhas[j][larg*i + dlarg  ] = ' '; // espaÁo
                 linhas[j][larg*i + dlarg+1] = furia;// desenhar o nivel de furia
-                linhas[j][larg*i + dlarg+2] = ' '; // espa√ßo
+                linhas[j][larg*i + dlarg+2] = ' '; // espaÁo
             }
         }
 
@@ -322,8 +337,11 @@ void gousmasWar() {
     printf("escreva o nome do jogador 2: ");
     scanf("%s",jog[1]);
 
-    printf("nomes dos jogadores s√£o: %s e %s!\n",jog[0],jog[1]);
+    printf("nomes dos jogadores: %s e %s!\n",jog[0],jog[1]);
 
+	system("pause");
+	system("cls");
+	
     int ganhador = 0; // ganhador = 0 -> nao sei quem ganhou ainda
     int vez = rand()%2; // vez aleatoria
     int action = 0; // 0 = distribuir furia //  1 = atacar // 2 = ataque obrigatorio //
@@ -337,14 +355,16 @@ void gousmasWar() {
 
 
     while(ganhador == 0) { // ganhador = nenhum
-        printf("\n------ vez de %s! ------\n\n", jog[vez]);
+    	
+        printf("\n==========================================\n");
+        printf("       vez de %s!\n\n", jog[vez]);
 
         // desenhar as gousmas no jogo //
 
         // gousmas do jogador 1
         printf("gosmas de %s: ", jog[0]);
         if (vez == 0) {// printar indicador de vez
-            printf("<<< ");
+            printf("<----- ");
         }
         printf("\n\n");
         drawGousmas(gousmas[0]);
@@ -353,11 +373,11 @@ void gousmasWar() {
         // gousmas do jogador 2
         printf("gosmas de %s: ", jog[1]); // do jogador 2
         if (vez == 1) {// printar indicador de vez
-            printf("<<< ");
+            printf("<----- ");
         }
         printf("\n\n");
         drawGousmas(gousmas[1]);
-        printf("\n");
+        printf("\n==========================================\n\n");
 
         // checar se alguem ganhou //
 
@@ -372,13 +392,13 @@ void gousmasWar() {
             break;
         }
 
-        // ver a a√ß√£o que deve ser executada //
+        // ver a aÁ„o que deve ser executada //
 
         if (gousmas[vez][0] >= 0 && gousmas[vez][1] >= 0) {
-            // ambos est√£o vivos
+            // ambos est„o vivos
             printf("0: distribuir furia\n");
-            printf("1: atacar\n");
-            printf("---> %s, escolha sua a√ß√£o: ",jog[vez]);
+            printf("1: atacar\n\n");
+            printf("jogador %s, escolha sua acao: ",jog[vez]);
             scanf("%d",&action);
             if (action != 0 && action != 1) {
                 // se for inserido um valor invalido -> vai atacar
@@ -386,13 +406,13 @@ void gousmasWar() {
                 action = 1;
             }
         } else {
-            // se um dos dois est√° morto, entao n√£o √© possivel transferir
+            // se um dos dois est· morto, entao n„o È possivel transferir
 
             printf("%s apenas pode atacar! \n",jog[vez]);
             action = 2;
         }
 
-        // executar a a√ß√£o dita //
+        // executar a aÁ„o dita //
 
         switch(action) {
         case 0: // distribuir
@@ -402,11 +422,11 @@ void gousmasWar() {
             printf("indique o quanto de furia sera transferido: ");
             scanf("%d",&quant);
 
-            alvo --;// fiz isso pois a ID das gousmas √© no array 0 - 1, ao inves de 1 - 2
+            alvo --;// fiz isso pois a ID das gousmas È no array 0 - 1, ao inves de 1 - 2
 
-            if (quant > gousmas[vez][(alvo+1)%2]) {// quant √© maior que a furia da gousma que vai entregar
+            if (quant > gousmas[vez][(alvo+1)%2]) {// quant È maior que a furia da gousma que vai entregar
                 quant = gousmas[vez][(alvo+1)%2];
-            } else if (quant < 0) {// quant √© negativa
+            } else if (quant < 0) {// quant È negativa
                 quant = 0;
             }
 
@@ -414,7 +434,7 @@ void gousmasWar() {
             gousmas[vez][alvo] += quant;
             gousmas[vez][(alvo+1)%2] -= quant;
 
-            printf("gosmas de %s ap√≥s a transferencia \n", jog[vez]); // desse jogador
+            printf("gosmas de %s apÛs a transferencia \n", jog[vez]); // desse jogador
             drawGousmas(gousmas[vez]);// desenhar as gousmas desse jogador
 
         break;
@@ -445,7 +465,7 @@ void gousmasWar() {
                 }
             }
 
-            atacante--;// fiz isso pois a ID das gousmas √© no array 0 - 1, ao inves de 1 - 2
+            atacante--;// fiz isso pois a ID das gousmas È no array 0 - 1, ao inves de 1 - 2
             atacado--;
 
             // atacar
@@ -457,10 +477,10 @@ void gousmasWar() {
             }
 
         break;
-        case 2:// ataque obrigatorio -> n√£o ha como distribuir pois uma das gousmas esta morta
+        case 2:// ataque obrigatorio -> n„o ha como distribuir pois uma das gousmas esta morta
             printf("ATAQUE \n");
 
-            // atacante √© a gosma viva(s√≥ uma das duas pode estar viva ao mesmo tempo)
+            // atacante È a gosma viva(sÛ uma das duas pode estar viva ao mesmo tempo)
             if (gousmas[vez][0] != -1) {
                 atacante = 0;
             } else {
@@ -479,16 +499,18 @@ void gousmasWar() {
 
             // atacar
             gousmas[(vez+1)%2][atacado] += gousmas[vez][atacante]; // furia da gosma atacada += furia da gosma atacante;
-
+			
             // ver se a gousma atacada morreu
             if (gousmas[(vez+1)%2][atacado] > 5) {
                 gousmas[(vez+1)%2][atacado] = -1; // morta
             }
         break;
         default:
-            printf("a√ß√£o invalida, turno pulado... (%d)\n",action);
+            printf("aÁ„o invalida, reinciciar turno... \n");
+            vez = (vez+1)%2;
         break;
         }
+        
         system("cls");
         vez = (vez+1) % 2; // trocar a vez
     }
@@ -511,7 +533,7 @@ int main() {
         printf("2: cobra na caixa \n");
         printf("3: gousmas war \n");
         printf("4: sair do arcade... \n");
-        printf("escolha o jogo que deseja jogar:");
+        printf("escolha o jogo que deseja jogar: ");
         scanf("%d",&escolha);
 
         system("cls");
@@ -533,16 +555,24 @@ int main() {
             printf("numero invalido inserido \n");
             break;
         }
-        restart = 'n';
-        printf("\n voltar ao menu?(S/N) ");
-        scanf("%c",&restart);
-        scanf("%c",&restart);
-        if (restart == 's' || restart == 'S') {
+        restart = '-';
+        while(restart != 'N' && restart != 'S') {
+        	printf("\n voltar ao menu?(S/N) ");
+	        scanf(" %c",&restart);
+	        setCaps(&restart);
+	        
+	        if (restart != 'N' && restart != 'S') {
+				printf("resposta invalida. \n");
+				system("pause");
+				system("cls");
+			}
+		}
+        if (restart == 'S') {
             printf("reiniciando... \n \n");
             system("cls");
         } else {
             ended = 1;
-            printf("finalizando... ('%c')\n\n\n",restart);
+            printf("finalizando... ('%c')",restart);
         }
     }
 
